@@ -37,6 +37,11 @@ h3 {
 	padding: 2rem;
 }
 
+.lds-ring {
+	align-self: center;
+	justify-self: center;
+}
+
 /* Navbar */
 
 nav {
@@ -98,9 +103,22 @@ main {
 	grid-template-rows: 1fr auto;
 }
 
+.error-message {
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: justify;
+    padding: 2rem;
+    border-radius: 5px;
+    font-weight: 300;
+    border: 1px solid white;
+}
+
 .weather-section {
 	display: grid;
-	gap: 1rem;
+	gap: 2rem;
 	justify-items: center;
 	align-items: center;
 	grid-template-columns: 1fr;
@@ -128,7 +146,7 @@ main {
 
 .location-info {
 	display: grid;
-	justify-items: starts;
+	justify-items: center;
 }
 
 .temperature-container {
@@ -145,7 +163,8 @@ main {
 
 .misc-data-list {
 	display: grid;
-	gap: 1rem;
+	justify-items: center;
+	gap: 0.5rem;
 	padding-top: 1rem;
 	min-width: 200px;
 	list-style: none;
@@ -213,11 +232,15 @@ main {
 	.weather-section {
 		grid-template-columns: 1fr 1fr;
 	}
+	.location-info {
+		justify-items: start;
+	}
 	.temperature-container {
 		grid-column: 2;
 	}
 	.misc-data-list {
 		grid-row: 2;
+		justify-items: start;
 		align-self: start;
 	}
 }

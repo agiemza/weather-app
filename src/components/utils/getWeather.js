@@ -2,30 +2,38 @@ import convertDate from "./convertDate"
 import getPosition from "./getPosition"
 import getTimeOfDay from "./getTimeOfDay"
 import getWeatherIcon from "./getWeatherIcon"
+import { forecastSection, weatherSection } from "../UI/main"
+import getPositionByIP from "./getPositionByIP"
+import sadIcon from "../../assets/sad"
 
 export default async function getWeather() {
 	try {
 		const position = await getPosition()
+		fetchDataFromAPI(position.coords)
+	} catch {
+		const position = await getPositionByIP()
+		fetchDataFromAPI(position)
+	}
+}
 
-		const lat = position.coords.latitude
-		const lon = position.coords.longitude
-
+async function fetchDataFromAPI(coords) {
+	try {
 		const key = "c0c1d3d4c91601c0135c78b5fae1e66b"
-
 		const currentWeather = await fetch(
-			`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${key}`
+			`https://api.openweathermap.org/data/2.5/weather?lat=${coords.latitude}&lon=${coords.longitude}&appid=${key}`
 		)
 		const weatherData = await currentWeather.json()
 
-		const forecast = await fetch(
-			`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${key}`
-		)
-		const forecastData = await forecast.json()
-		// forecastData.list.map(item => console.log(item) )
-
-		insertDataToDOM(processData(weatherData))
+		const main = document.querySelector("main")
+		main.innerHTML = ""
+		main.appendChild(weatherSection())
+		main.appendChild(forecastSection())
+		insertCurrentWeatherToDOM(processData(weatherData))
 	} catch (err) {
 		console.error(err)
+		displayErrorMessage(
+			"Connection to API cannot be established, please check your internet connection and try again later."
+		)
 	}
 }
 
@@ -44,7 +52,7 @@ function processData(data) {
 	}
 }
 
-function insertDataToDOM(data) {
+function insertCurrentWeatherToDOM(data) {
 	const cityField = document.querySelector("#city")
 	cityField.textContent = data.city
 	const dateField = document.querySelector("#date")
@@ -67,4 +75,15 @@ function insertDataToDOM(data) {
 	humidityField.textContent = `${data.humidity}%`
 	const pressureField = document.querySelector("#pressure")
 	pressureField.textContent = `${data.pressure} hPa`
+}
+
+function displayErrorMessage(message) {
+	document.body.querySelector("main").innerHTML = ""
+	const errorMessage = document.createElement("div")
+	errorMessage.classList.add("error-message")
+	errorMessage.innerHTML = `
+		<div class="error-icon">${sadIcon}</div>
+		<p>${message}</p>
+	`
+	document.body.querySelector("main").appendChild(errorMessage)
 }

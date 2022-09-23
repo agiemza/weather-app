@@ -10,7 +10,6 @@ export default function app() {
 function renderElements() {
 	const root = createRootElement()
 	root.appendChild(nav())
-
 	root.appendChild(main())
 }
 

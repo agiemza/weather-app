@@ -1,10 +1,9 @@
 import cloud from "../../assets/weather/cloud"
+import loadingAnimation from "../utils/loadingAnimation"
 
 export default function main() {
 	const main = document.createElement("main")
-
-	main.appendChild(weatherSection())
-	main.appendChild(forecastSection())
+	main.prepend(loadingAnimation())
 	return main
 }
 
@@ -13,7 +12,6 @@ export default function main() {
 export function weatherSection() {
 	const weatherSection = document.createElement("section")
 	weatherSection.classList.add("weather-section")
-
 	weatherSection.appendChild(createWeatherDataContainer())
 	weatherSection.appendChild(createCurrentWeather())
 	weatherSection.appendChild(createTemperatureContainer())
@@ -32,8 +30,8 @@ function createLocationInfo() {
 	const locationInfo = document.createElement("div")
 	locationInfo.classList.add("location-info")
 	locationInfo.innerHTML = `
-		<h2 id="city">San Francisco, USA</h2>
-		<h3 id="date">September 22, 2022</h3>
+		<h2 id="city"></h2>
+		<h3 id="date"></h3>
 	`
 	return locationInfo
 }
@@ -42,8 +40,8 @@ function createCurrentWeather() {
 	const currentWeatherIcon = document.createElement("div")
 	currentWeatherIcon.classList.add("current-weather")
 	currentWeatherIcon.innerHTML = `
-		<div id="weather-icon">${cloud}</div>
-		<div class="weather-description">cloudy</div>
+		<div id="weather-icon"></div>
+		<div class="weather-description"></div>
 	`
 	return currentWeatherIcon
 }
@@ -53,10 +51,8 @@ function createTemperatureContainer() {
 	temperatureContainer.classList.add("temperature-container")
 	temperatureContainer.innerHTML = `
 		<div class="temperature">
-			20°C
 		</div>
 		<div class="feels-like">
-			Feels like -3°C
 		</div>
 	`
 	return temperatureContainer
@@ -68,15 +64,15 @@ function createMiscDataList() {
 	list.innerHTML = `
 		<li>
 			<div>Wind:</div>
-			<div id="wind">13km/h</div>
+			<div id="wind"></div>
 		</li>
 		<li>
 			<div>Humidity:</div>
-			<div id="humidity">70%</div>
+			<div id="humidity"></div>
 		</li>
 		<li>
 			<div>Pressure:</div>
-			<div id="pressure">1022hPa</div>
+			<div id="pressure"></div>
 		</li>
 	`
 	return list
@@ -84,7 +80,7 @@ function createMiscDataList() {
 
 // forecast
 
-function forecastSection() {
+export function forecastSection() {
 	const forecastSection = document.createElement("section")
 	forecastSection.classList.add("forecast-section")
 
