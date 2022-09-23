@@ -1,4 +1,3 @@
-import header from "./UI/header"
 import main from "./UI/main"
 import nav from "./UI/nav"
 import getWeather from "./utils/getWeather"
@@ -10,14 +9,15 @@ export default function app() {
 
 function renderElements() {
 	const root = createRootElement()
-	root.appendChild(header())
-	root.appendChild(main())
 	root.appendChild(nav())
+
+	root.appendChild(main())
 }
 
 function createRootElement() {
 	const root = document.createElement("div")
-	root.classList.add("#root")
+	document.body.classList.add("sky-gradient-13")
+	root.id = "root"
 	document.body.appendChild(root)
 	return root
 }

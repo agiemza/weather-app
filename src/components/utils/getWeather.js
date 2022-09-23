@@ -18,9 +18,8 @@ export default async function getWeather() {
 			`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${key}`
 		)
 		const forecastData = await forecast.json()
-
-		console.log(weatherData)
-		console.log(forecastData)
+		forecastData.list.map(item => console.log(item) )
+		
 	} catch (err) {
 		console.error(err)
 	}

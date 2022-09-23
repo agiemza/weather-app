@@ -2,88 +2,134 @@ import cloud from "../../assets/weather/cloud"
 
 export default function main() {
 	const main = document.createElement("main")
-	main.appendChild(weatherSection())
-	main.appendChild(daySwitchSection())
 
+	main.appendChild(weatherSection())
+	main.appendChild(forecastSection())
 	return main
 }
+
+// weather
 
 function weatherSection() {
 	const weatherSection = document.createElement("section")
 	weatherSection.classList.add("weather-section")
 
-	weatherSection.appendChild(createCurrentWeatherIcon())
-	weatherSection.appendChild(createHourSwitch())
+	weatherSection.appendChild(createWeatherDataContainer())
 	weatherSection.appendChild(createCurrentWeather())
-
+	weatherSection.appendChild(createTemperatureContainer())
+	weatherSection.appendChild(createMiscDataList())
 	return weatherSection
 }
 
-function createCurrentWeatherIcon() {
-	const currentWeatherIcon = document.createElement("div")
-	currentWeatherIcon.classList.add("current-weather-icon")
-	currentWeatherIcon.innerHTML = cloud
-	return currentWeatherIcon
+function createWeatherDataContainer() {
+	const weatherDataContainer = document.createElement("div")
+	weatherDataContainer.classList.add("weather-data-container")
+	weatherDataContainer.appendChild(createLocationInfo())
+	return weatherDataContainer
 }
 
-function createHourSwitch() {
-	const hourSwitchContainer = document.createElement("div")
-	hourSwitchContainer.classList.add("hour-switch-container")
-	hourSwitchContainer.innerHTML = `
-    	<div class="hour-switch">
-    	  <div class="hour-option hour-option-s">09:00</div>
-    	  <div class="hour-option hour-option-m">10:00</div>
-    	  <div class="hour-option">11:00</div>
-    	  <div class="hour-option hour-option-m">12:00</div>
-    	  <div class="hour-option hour-option-s">13:00</div>
-    	</div>	
+function createLocationInfo() {
+	const locationInfo = document.createElement("div")
+	locationInfo.classList.add("location-info")
+	locationInfo.innerHTML = `
+		<h2>San Francisco, USA</h2>
+		<h3>September 22, 2022</h3>
 	`
-	return hourSwitchContainer
+	return locationInfo
 }
 
 function createCurrentWeather() {
-	const currentWeatherContainer = document.createElement("div")
-	currentWeatherContainer.classList.add("current-weather-container")
-	currentWeatherContainer.innerHTML = `
-		<div class="temperature">20</div>
-    	<div class="temp-unit">°C</div>
-    	<div class="weather-description">cloudy</div>
+	const currentWeatherIcon = document.createElement("div")
+	currentWeatherIcon.classList.add("current-weather")
+	currentWeatherIcon.innerHTML = `
+		${cloud}
+		<div class="weather-description">cloudy</div>
 	`
-	return currentWeatherContainer
+	return currentWeatherIcon
 }
 
-// day switch
-
-function daySwitchSection() {
-	const daySwitchSection = document.createElement("section")
-	daySwitchSection.classList.add("day-switch-section")
-
-	daySwitchSection.appendChild(createMaxMinTemperature())
-	daySwitchSection.appendChild(createDaySwitch())
-
-	return daySwitchSection
+function createTemperatureContainer() {
+	const temperatureContainer = document.createElement("div")
+	temperatureContainer.classList.add("temperature-container")
+	temperatureContainer.innerHTML = `
+		<div class="temperature">20°C</div>
+		<div class="max-min-temperature">
+			22°C / <span class="temp-min">13°C<span/>
+		</div>
+	`
+	return temperatureContainer
 }
 
-function createMaxMinTemperature() {
-	const maxMinTemperature = document.createElement("div")
-	maxMinTemperature.classList.add("max-min-temperature-container")
-	maxMinTemperature.innerHTML = `
-		<div class="temp-max">H: 22</div>
-		<div class="temp-min">L: 13</div>
-		<div class="temp-unit">°C</div>
+function createMiscDataList() {
+	const list = document.createElement("ul")
+	list.classList.add("misc-data-list")
+	list.innerHTML = `
+		<li>
+			<div>Wind:</div>
+			<div>13km/h</div>
+		</li>
+		<li>
+			<div>Precipitation:</div>
+			<div>15%</div>
+		</li>
+		<li>
+			<div>Humidity:</div>
+			<div>70%</div>
+		</li>
+		<li>
+			<div>Pressure:</div>
+			<div>1022 hPa</div>
+		</li>
 	`
-	return maxMinTemperature
+	return list
+}
+
+// forecast
+
+function forecastSection() {
+	const forecastSection = document.createElement("section")
+	forecastSection.classList.add("forecast-section")
+
+	forecastSection.appendChild(createDaySwitch())
+
+	return forecastSection
 }
 
 function createDaySwitch() {
 	const daySwitch = document.createElement("div")
-	daySwitch.classList.add("day-switch-container")
+	daySwitch.classList.add("forecast-container")
 	daySwitch.innerHTML = `
-		<div class="day-option day-option-s">Mon</div>
-    	<div class="day-option day-option-m">Tue</div>
-    	<div class="day-option">Wed</div>
-    	<div class="day-option day-option-m">Thu</div>
-    	<div class="day-option day-option-s">Fri</div>
+		<div class="tile">
+			<div>11:00</div>
+			<div>${cloud}</div>
+			<div>14°C</div>
+		</div>
+		<div class="tile">
+			<div>14:00</div>
+			<div>${cloud}</div>
+			<div>14°C</div>
+		</div>
+		<div class="tile">
+			<div>17:00</div>
+			<div>${cloud}</div>
+			<div>14°C</div>
+		</div>
+		<div class="tile">
+			<div>20:00</div>
+			<div>${cloud}</div>
+			<div>14°C</div>
+		</div>
+		<div class="tile">
+			<div>23:00</div>
+			<div>${cloud}</div>
+			<div>14°C</div>
+		</div>
+		<div class="tile">
+			<div>02:00</div>
+			<div>${cloud}</div>
+			<div>14°C</div>
+		</div>
+
 	`
 	return daySwitch
 }
