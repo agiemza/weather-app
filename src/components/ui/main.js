@@ -10,7 +10,7 @@ export default function main() {
 
 // weather
 
-function weatherSection() {
+export function weatherSection() {
 	const weatherSection = document.createElement("section")
 	weatherSection.classList.add("weather-section")
 
@@ -32,8 +32,8 @@ function createLocationInfo() {
 	const locationInfo = document.createElement("div")
 	locationInfo.classList.add("location-info")
 	locationInfo.innerHTML = `
-		<h2>San Francisco, USA</h2>
-		<h3>September 22, 2022</h3>
+		<h2 id="city">San Francisco, USA</h2>
+		<h3 id="date">September 22, 2022</h3>
 	`
 	return locationInfo
 }
@@ -42,7 +42,7 @@ function createCurrentWeather() {
 	const currentWeatherIcon = document.createElement("div")
 	currentWeatherIcon.classList.add("current-weather")
 	currentWeatherIcon.innerHTML = `
-		${cloud}
+		<div id="weather-icon">${cloud}</div>
 		<div class="weather-description">cloudy</div>
 	`
 	return currentWeatherIcon
@@ -52,9 +52,11 @@ function createTemperatureContainer() {
 	const temperatureContainer = document.createElement("div")
 	temperatureContainer.classList.add("temperature-container")
 	temperatureContainer.innerHTML = `
-		<div class="temperature">20°C</div>
-		<div class="max-min-temperature">
-			22°C / <span class="temp-min">13°C<span/>
+		<div class="temperature">
+			20°C
+		</div>
+		<div class="feels-like">
+			Feels like -3°C
 		</div>
 	`
 	return temperatureContainer
@@ -66,19 +68,15 @@ function createMiscDataList() {
 	list.innerHTML = `
 		<li>
 			<div>Wind:</div>
-			<div>13km/h</div>
-		</li>
-		<li>
-			<div>Precipitation:</div>
-			<div>15%</div>
+			<div id="wind">13km/h</div>
 		</li>
 		<li>
 			<div>Humidity:</div>
-			<div>70%</div>
+			<div id="humidity">70%</div>
 		</li>
 		<li>
 			<div>Pressure:</div>
-			<div>1022 hPa</div>
+			<div id="pressure">1022hPa</div>
 		</li>
 	`
 	return list
