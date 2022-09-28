@@ -1,4 +1,4 @@
-export default function convertDate(date) {
+export function convertFullDate(date) {
 	const dateObject = new Date(date * 1000)
 	const monthNames = [
 		"January",
@@ -15,5 +15,15 @@ export default function convertDate(date) {
 		"December",
 	]
 
-    return `${monthNames[dateObject.getMonth()]} ${dateObject.getDate()}, ${dateObject.getFullYear()}`
+	return `${
+		monthNames[dateObject.getMonth()]
+	} ${dateObject.getDate()}, ${dateObject.getFullYear()}`
+}
+
+export function convertDayOfWeek(date) {
+	const dateObject = new Date(date * 1000)
+
+	const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+
+	return `${dayNames[dateObject.getDay()]}`
 }

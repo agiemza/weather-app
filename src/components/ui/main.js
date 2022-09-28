@@ -1,10 +1,17 @@
-import cloud from "../../assets/weather/cloud"
 import loadingAnimation from "../utils/loadingAnimation"
+
 
 export default function main() {
 	const main = document.createElement("main")
 	main.prepend(loadingAnimation())
 	return main
+}
+
+export function display() {
+	const main = document.querySelector("main")
+	main.innerHTML = ""
+	main.appendChild(weatherSection())
+	main.appendChild(forecastSection())
 }
 
 // weather
@@ -92,38 +99,5 @@ export function forecastSection() {
 function createDaySwitch() {
 	const daySwitch = document.createElement("div")
 	daySwitch.classList.add("forecast-container")
-	daySwitch.innerHTML = `
-		<div class="tile">
-			<div>11:00</div>
-			<div>${cloud}</div>
-			<div>14°C</div>
-		</div>
-		<div class="tile">
-			<div>14:00</div>
-			<div>${cloud}</div>
-			<div>14°C</div>
-		</div>
-		<div class="tile">
-			<div>17:00</div>
-			<div>${cloud}</div>
-			<div>14°C</div>
-		</div>
-		<div class="tile">
-			<div>20:00</div>
-			<div>${cloud}</div>
-			<div>14°C</div>
-		</div>
-		<div class="tile">
-			<div>23:00</div>
-			<div>${cloud}</div>
-			<div>14°C</div>
-		</div>
-		<div class="tile">
-			<div>02:00</div>
-			<div>${cloud}</div>
-			<div>14°C</div>
-		</div>
-
-	`
 	return daySwitch
 }
