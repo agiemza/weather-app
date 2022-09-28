@@ -11,7 +11,6 @@ export default async function getWeather(city) {
 		const position = city || (await getPositionByIP())
 		const weatherData = await fetchData(createApiUrl(position, "weather"))
 		const forecastData = await fetchData(createApiUrl(position, "forecast"))
-
 		displayMain()
 		insertCurrentWeatherToDOM(processData(weatherData))
 		insertForecastToDOM(forecastData)
