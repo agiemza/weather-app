@@ -6,12 +6,12 @@ export default function nav() {
 	const nav = document.createElement("nav")
 	nav.appendChild(createLogo())
 	nav.appendChild(createSearchInput(searchConfirmHandler))
-
 	nav.appendChild(
 		createButton(LocationIcon, "locate-button", locateButtonClickHandler)
 	)
-
-	nav.appendChild(createButton(SearchIcon, "search-button"))
+	nav.appendChild(
+		createButton(SearchIcon, "search-button", searchConfirmHandler)
+	)
 	return nav
 }
 
@@ -25,6 +25,7 @@ function createLogo() {
 function createSearchInput(eventHandler) {
 	const searchInput = document.createElement("input")
 	searchInput.classList.add("search-input")
+	searchInput.id = "search"
 	searchInput.type = "search"
 	searchInput.addEventListener(
 		"keydown",
@@ -46,6 +47,10 @@ function locateButtonClickHandler() {
 }
 
 function searchConfirmHandler() {
-	const city = document.querySelector(".search-input").value
-	getWeather(city)
+	const input = document.querySelector(".search-input")
+	const city = input.value
+	if (city.length > 0) {
+		input.value = ""
+		getWeather(city)
+	}
 }

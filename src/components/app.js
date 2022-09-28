@@ -1,8 +1,10 @@
 import main from "./UI/main"
 import nav from "./UI/nav"
+import backgroundGradientAdjuster from "./utils/backgroundGradientAdjuster"
 import getWeather from "./utils/getWeather"
 
 export default function app() {
+	backgroundGradientAdjuster()
 	renderElements()
 	getWeather()
 }
@@ -15,7 +17,6 @@ function renderElements() {
 
 function createRootElement() {
 	const root = document.createElement("div")
-	document.body.classList.add("sky-gradient-13")
 	root.id = "root"
 	document.body.appendChild(root)
 	return root

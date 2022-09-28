@@ -1,22 +1,25 @@
 import { convertFullDate, convertDayOfWeek } from "./convertDate"
-import getTimeOfDay from "./getTimeOfDay"
+import { getTime, getTimeOfDay } from "./getTime"
 import getWeatherIcon from "./getWeatherIcon"
 import { display as displayMain } from "../UI/main"
 import getPositionByIP from "./getPositionByIP"
 import sadIcon from "../../assets/sad"
-import getTime from "./getTime"
 
 export default async function getWeather(city) {
 	try {
 		const position = city || (await getPositionByIP())
 		const weatherData = await fetchData(createApiUrl(position, "weather"))
 		const forecastData = await fetchData(createApiUrl(position, "forecast"))
-		displayMain()
-		insertCurrentWeatherToDOM(processData(weatherData))
-		insertForecastToDOM(forecastData)
+		if (weatherData.cod === 200) {
+			displayMain()
+			insertCurrentWeatherToDOM(processData(weatherData))
+			insertForecastToDOM(forecastData)
+		}
+		if (weatherData.cod === "404") {
+			showErrorInsideIput("No such a location")
+		}
 	} catch (err) {
-		console.log(err)
-		displayErrorMessage("Oops... We ran into a connection problem.")
+		displayErrorMessage("Oops... We have connection issues.")
 	}
 }
 
@@ -25,13 +28,9 @@ function createApiUrl(city, type) {
 }
 
 async function fetchData(url) {
-	try {
-		const currentWeather = await fetch(url)
-		const weatherData = await currentWeather.json()
-		return weatherData
-	} catch (err) {
-		console.log(err)
-	}
+	const currentWeather = await fetch(url)
+	const weatherData = await currentWeather.json()
+	return weatherData
 }
 
 function processData(data) {
@@ -95,6 +94,16 @@ async function insertForecastToDOM(forecastData) {
 		`
 		container.appendChild(card)
 	})
+}
+
+function showErrorInsideIput(message) {
+	const input = document.querySelector("#search")
+	input.placeholder = message
+
+	input.classList.add("shake")
+	setTimeout(() => {
+		input.classList.remove("shake")
+	}, 2000)
 }
 
 export function displayErrorMessage(message) {
